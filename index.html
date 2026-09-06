@@ -670,6 +670,91 @@ body.dark .ref-secondary-action{background:#1b2831!important;color:#dcecf4!impor
 }
 </style>
 <style id="qaDarkButtonStyle">.footer-theme-btn{border:0;background:transparent;color:inherit;font:inherit;font-weight:700;padding:6px 10px;margin-bottom:8px;cursor:pointer}</style>
+
+<style id="monochromeIconPatch">
+.ref-tile-icon{
+  width:34px!important;
+  height:34px!important;
+  margin-bottom:8px!important;
+  color:#2E6789!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.ref-tile-warm .ref-tile-icon{color:#D86F28!important}
+.ref-tile-mint .ref-tile-icon{color:#276B65!important}
+.ref-svg-icon{width:34px;height:34px;display:block}
+.ref-top-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:7px;
+}
+.ref-top-svg{width:20px;height:20px;display:block;flex:0 0 auto}
+.ref-dark-toggle{
+  width:44px!important;
+  height:44px!important;
+  padding:0!important;
+  border-radius:13px!important;
+  border:1px solid rgba(255,255,255,.72)!important;
+  background:rgba(255,255,255,.05)!important;
+  color:#fff!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.ref-subject-switch{
+  margin-top:0!important;
+  min-height:44px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+}
+.ref-top-arrow{font-size:20px;line-height:1}
+body.dark .ref-tile-icon{color:#8FC2DE!important}
+body.dark .ref-tile-warm .ref-tile-icon{color:#F0A168!important}
+body.dark .ref-tile-mint .ref-tile-icon{color:#87C5B7!important}
+@media(max-width:620px){
+  .ref-tile-icon{width:29px!important;height:29px!important;margin-bottom:6px!important}
+  .ref-svg-icon{width:29px;height:29px}
+  .ref-top-actions{gap:6px}
+  .ref-dark-toggle{width:40px!important;height:40px!important}
+  .ref-subject-switch{min-height:40px!important}
+  .ref-top-svg{width:18px;height:18px}
+}
+</style>
+
+
+<style id="threeFunctionComfortPatch">
+.ref-grid-card-compact{padding:16px!important;margin-top:0!important}
+.ref-grid-three{grid-template-columns:repeat(3,1fr)!important;gap:16px!important}
+.ref-grid-three .ref-tile{
+  min-height:158px!important;padding:20px 12px!important;border-radius:18px!important
+}
+.ref-grid-three .ref-tile-icon{width:40px!important;height:40px!important;margin-bottom:11px!important}
+.ref-grid-three .ref-svg-icon{width:40px!important;height:40px!important}
+.ref-grid-three .ref-tile-title{font-size:19px!important;line-height:1.2!important;margin-top:1px!important}
+.ref-grid-three .ref-tile-sub{font-size:12px!important;line-height:1.4!important;margin-top:7px!important}
+.ref-grid-three .ref-tile-primary{
+  background:linear-gradient(145deg,#fff8f2,#fcebdd)!important;border-color:#efd4bd!important
+}
+.ref-grid-three .ref-tile-primary .ref-tile-icon{color:#D86F28!important}
+.ref-subject-card,.ref-action-card,.ref-style-card,.contact-line-wrap{margin-top:18px!important}
+
+@media(max-width:620px){
+  .ref-grid-card-compact{padding:11px!important}
+  .ref-grid-three{gap:10px!important}
+  .ref-grid-three .ref-tile{
+    min-height:132px!important;padding:14px 5px!important;border-radius:15px!important
+  }
+  .ref-grid-three .ref-tile-icon{width:31px!important;height:31px!important;margin-bottom:8px!important}
+  .ref-grid-three .ref-svg-icon{width:31px!important;height:31px!important}
+  .ref-grid-three .ref-tile-title{font-size:15px!important;white-space:nowrap!important}
+  .ref-grid-three .ref-tile-sub{font-size:10px!important;margin-top:5px!important;white-space:nowrap!important}
+}
+</style>
+
 </head>
 <body class="subject-landing">
 <header class="header" id="mainHeader">
@@ -683,7 +768,10 @@ body.dark .ref-secondary-action{background:#1b2831!important;color:#dcecf4!impor
           <div class="ref-slogan">— 專業・踏實・一試就上 —</div>
         </div>
       </div>
-      <button class="ref-subject-switch" onclick="showSubjectSelect()">🗂 選擇科目　›</button>
+      <div class="ref-top-actions">
+      <button class="ref-dark-toggle" id="darkBtn" type="button" aria-label="切換深色模式"><svg class="ref-top-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 15.7A8.5 8.5 0 0 1 8.3 4a8.5 8.5 0 1 0 11.7 11.7Z" fill="currentColor"/></svg></button>
+      <button class="ref-subject-switch" onclick="showSubjectSelect()"><svg class="ref-top-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6.5h6l2 2h10v10.5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>選擇科目</span><span class="ref-top-arrow">›</span></button>
+    </div>
     </div>
   </div>
 </header>
@@ -714,54 +802,39 @@ body.dark .ref-secondary-action{background:#1b2831!important;color:#dcecf4!impor
 <section id="home" class="hidden">
   <div class="ref-shell">
 
-    <div class="ref-grid-card">
-      <div class="ref-grid">
-        <button class="ref-tile ref-tile-warm" onclick="startRandom(20)">
-          <div class="ref-tile-icon">🧾</div>
-          <div class="ref-tile-title">快速20題</div>
-          <div class="ref-tile-sub">快速檢測實力</div>
-        </button>
-        <button class="ref-tile" onclick="startRandom(50)">
-          <div class="ref-tile-icon">🔀</div>
-          <div class="ref-tile-title">隨機50題</div>
-          <div class="ref-tile-sub">強化應試能力</div>
-        </button>
-        <button class="ref-tile ref-tile-mint" onclick="showChapters()">
-          <div class="ref-tile-icon">📖</div>
-          <div class="ref-tile-title">章節練習</div>
-          <div class="ref-tile-sub">依章節系統學習</div>
-        </button>
-
-        <button class="ref-tile" onclick="startExam()">
-          <div class="ref-tile-icon">🕒</div>
+    <div class="ref-grid-card ref-grid-card-compact">
+      <div class="ref-grid ref-grid-three">
+        <button class="ref-tile ref-tile-primary" onclick="startExam()">
+          <div class="ref-tile-icon">
+            <svg class="ref-svg-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 7.5V12l3.2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
           <div class="ref-tile-title">考場模式</div>
           <div class="ref-tile-sub">模擬正式考試</div>
         </button>
-        <button class="ref-tile" onclick="startWrong()">
-          <div class="ref-tile-icon">🧮</div>
-          <div class="ref-tile-title">錯題複習</div>
-          <div class="ref-tile-sub">針對弱點加強</div>
-        </button>
+
         <button class="ref-tile" onclick="showHistory()">
-          <div class="ref-tile-icon">📊</div>
+          <div class="ref-tile-icon">
+            <svg class="ref-svg-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 20V12h3v8zM10.5 20V7h3v13zM17 20V4h3v16z" fill="currentColor"/>
+              <path d="M3 20.5h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
           <div class="ref-tile-title">我的成績</div>
           <div class="ref-tile-sub">掌握學習進度</div>
         </button>
 
         <button class="ref-tile" onclick="showPastExams()">
-          <div class="ref-tile-icon">🗓️</div>
+          <div class="ref-tile-icon">
+            <svg class="ref-svg-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M7 3v4M17 3v4M3.5 9h17M7.5 13h2M12 13h2M16.5 13h1M7.5 16.5h2M12 16.5h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
           <div class="ref-tile-title">歷年考題</div>
           <div class="ref-tile-sub">114–115年試題</div>
-        </button>
-        <button class="ref-tile" onclick="showReading()">
-          <div class="ref-tile-icon">📘</div>
-          <div class="ref-tile-title">閱讀模式</div>
-          <div class="ref-tile-sub">輕鬆瀏覽題庫</div>
-        </button>
-        <button class="ref-tile" onclick="goHome()">
-          <div class="ref-tile-icon">🏠</div>
-          <div class="ref-tile-title">題庫首頁</div>
-          <div class="ref-tile-sub">回到本頁</div>
         </button>
       </div>
     </div>
@@ -782,13 +855,13 @@ body.dark .ref-secondary-action{background:#1b2831!important;color:#dcecf4!impor
 
     <div class="ref-action-card">
       <div class="ref-section-label">主要按鈕模式</div>
-      <button class="ref-primary-action" onclick="startRandom(20)">▶　開始測驗　›</button>
+      <button class="ref-primary-action" onclick="startExam()">▶　開始考場測驗　›</button>
       <button class="ref-secondary-action" onclick="showSubjectSelect()">返回上一頁</button>
 
       <div class="ref-section-label ref-label-gap">標籤模式</div>
       <div class="ref-pill-row">
         <span class="ref-pill ref-pill-orange">NEW　115年最新版</span>
-        <span class="ref-pill ref-pill-blue">章節練習</span>
+        <span class="ref-pill ref-pill-blue">歷年考題</span>
         <span class="ref-pill ref-pill-green">正確</span>
         <span class="ref-pill ref-pill-red">錯誤</span>
         <span class="ref-pill ref-pill-gray">未作答</span>
@@ -898,7 +971,7 @@ function updateWrong(q){let w=loadStore(CURRENT_SUBJECT+'_wrong',[]),ok=answers[
 function prevQ(){if(idx>0){idx--;render();window.scrollTo(0,0)}}
 function jumpQ(i){idx=i;render();window.scrollTo(0,0)}
 function finish(){if(examMode)session.forEach(q=>updateWrong(q));let correct=session.filter(q=>answers[q.id]===q.answer).length,total=session.length,score=Math.round(correct/total*100);let h=loadStore(CURRENT_SUBJECT+'_history',[]);h.push({date:new Date().toLocaleString('zh-TW'),correct,total,score});saveStore(CURRENT_SUBJECT+'_history',h);alert(`測驗完成！\n答對 ${correct} / ${total} 題\n成績 ${score} 分`);goHome()}
-window.toggleDarkMode=()=>{document.body.classList.toggle('dark');localStorage.setItem('dark',document.body.classList.contains('dark')?'1':'0')};const darkBtn=$('#darkBtn');if(darkBtn)darkBtn.onclick=window.toggleDarkMode;if(localStorage.getItem('dark')==='1')document.body.classList.add('dark');updateStats();
+
 </script>
 
 
@@ -966,7 +1039,7 @@ function startPastExam(year,examModeOn){
   </div>
 </section>
 
-<footer class="legal-footer"><button id="darkBtn" type="button" class="footer-theme-btn">🌙 深色模式</button>
+<footer class="legal-footer">
   <div class="legal-links">
     <button onclick="openLegal('about')">關於本站</button>
     <button onclick="openLegal('source')">資料來源</button>
@@ -1265,6 +1338,39 @@ function contactNotSet(type){
     : '官方 LINE 尚未設定。');
   return false;
 }
+</script>
+
+
+<script id="darkModeRobustPatch">
+(function(){
+  function syncDarkButton(){
+    const btn=document.getElementById('darkBtn');
+    if(!btn)return;
+    const isDark=document.body.classList.contains('dark');
+    btn.setAttribute('aria-label',isDark?'切換淺色模式':'切換深色模式');
+    btn.title=isDark?'切換淺色模式':'切換深色模式';
+  }
+  window.toggleDarkMode=function(){
+    document.body.classList.toggle('dark');
+    try{localStorage.setItem('dark',document.body.classList.contains('dark')?'1':'0');}catch(e){}
+    syncDarkButton();
+  };
+  try{
+    if(localStorage.getItem('dark')==='1')document.body.classList.add('dark');
+  }catch(e){}
+  function bindDark(){
+    const btn=document.getElementById('darkBtn');
+    if(btn){
+      btn.onclick=window.toggleDarkMode;
+      syncDarkButton();
+    }
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',bindDark,{once:true});
+  }else{
+    bindDark();
+  }
+})();
 </script>
 
 </body>
