@@ -178,6 +178,119 @@ body{font-size:15px}
 }
 </style>
 
+
+<style id="shareFeatureStyle">
+.share-site-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid rgba(255,255,255,.30);
+  background:rgba(255,255,255,.16);color:#fff;
+  border-radius:9px;padding:7px 10px;font-size:13px;font-weight:800;
+  cursor:pointer
+}
+.share-site-btn:active{transform:scale(.98)}
+.share-modal-backdrop{
+  position:fixed;inset:0;background:rgba(15,23,42,.55);
+  display:none;align-items:center;justify-content:center;
+  padding:18px;z-index:9999
+}
+.share-modal-backdrop.show{display:flex}
+.share-modal{
+  width:min(390px,100%);background:var(--card,#fff);color:var(--text,#0f172a);
+  border-radius:20px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.25);
+  text-align:center
+}
+.share-modal h3{font-size:20px;margin:0 0 8px}
+.share-modal p{font-size:14px;line-height:1.6;color:var(--muted,#64748b);margin:0 0 14px}
+.share-qr{
+  width:210px;height:210px;max-width:70vw;max-height:70vw;
+  border-radius:14px;background:#fff;padding:8px;border:1px solid var(--line,#e5e7eb)
+}
+.share-url{
+  margin:14px 0 12px;padding:10px 12px;border-radius:11px;
+  background:rgba(148,163,184,.12);font-size:13px;word-break:break-all
+}
+.share-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.share-actions button{
+  border:0;border-radius:11px;padding:11px 10px;font-size:14px;font-weight:800;cursor:pointer
+}
+.share-primary{background:#0ea5e9;color:#fff}
+.share-secondary{background:rgba(148,163,184,.14);color:var(--text,#0f172a)}
+.share-close{margin-top:8px;width:100%}
+@media(max-width:620px){
+  .share-site-btn{font-size:12px;padding:6px 9px}
+  .share-modal{padding:18px}
+}
+</style>
+
+
+<style id="pastExamStyle">
+.past-exam-card{
+  background:var(--card,#fff);
+  border:1px solid var(--line,#dce4ee);
+  border-radius:16px;
+  padding:17px;
+  margin:10px 0;
+}
+.past-exam-year{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+.past-exam-year h3{margin:0;font-size:19px}
+.past-exam-badge{
+  font-size:12px;
+  font-weight:800;
+  padding:5px 8px;
+  border-radius:999px;
+  background:var(--soft,#eaf4fb);
+  color:var(--blue,#2e86c1);
+  white-space:nowrap;
+}
+.past-exam-card p{
+  margin:7px 0;
+  color:var(--muted,#64748b);
+  font-size:14px;
+  line-height:1.6;
+}
+.past-exam-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:12px;
+}
+.past-exam-actions button{
+  border:1px solid var(--line,#dce4ee);
+  border-radius:11px;
+  padding:11px 9px;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+  background:var(--card,#fff);
+  color:var(--text,#0f172a);
+}
+.past-exam-actions .primary{
+  background:var(--blue,#2e86c1);
+  border-color:var(--blue,#2e86c1);
+  color:#fff;
+}
+.past-exam-note{
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:12px;
+  background:rgba(245,158,11,.10);
+  color:var(--text,#0f172a);
+  font-size:13px;
+  line-height:1.6;
+}
+@media(max-width:620px){
+  .past-exam-card{padding:14px}
+  .past-exam-year h3{font-size:17px}
+  .past-exam-actions button{font-size:13px;padding:10px 8px}
+}
+</style>
+
 </head>
 <body>
 <header class="header">
@@ -185,6 +298,7 @@ body{font-size:15px}
 <div class="brand-row">
 <div class="brand">甲種職業安全衛生<br>業務主管線上題庫</div>
 <div class="top-actions">
+<button class="share-site-btn" type="button" onclick="openShareModal()">↗ 分享網站</button>
 <button class="top-btn" id="darkBtn">🌙 深色模式</button>
 <button class="top-btn" onclick="goHome()">⌂ 回首頁</button>
 </div>
@@ -196,6 +310,7 @@ body{font-size:15px}
 <button onclick="startExam()">考場模式</button>
 <button onclick="startWrong()">錯題複習</button>
 <button onclick="showHistory()">我的成績</button>
+<button onclick="showPastExams()">歷年考題</button>
 <button onclick="showReading()">閱讀模式</button><button onclick="goHome()">題庫首頁</button>
 </nav>
 </div>
@@ -221,9 +336,48 @@ body{font-size:15px}
 <button class="mode" onclick="startExam()"><h3>⏱️ 考場模式</h3><p>50題、不立即顯示答案，最後統一計分。</p></button>
 <button class="mode" onclick="startWrong()"><h3>📝 錯題複習</h3><p>只練曾經答錯的題目。</p></button>
 <button class="mode" onclick="customStart()"><h3>🔢 自訂題數</h3><p>自訂 10～200 題。</p></button>
+<button class="mode" onclick="showPastExams()"><h3>🗓️ 歷年考題測驗</h3><p>114、115 年公開測驗紀錄比對題。</p></button>
 </div>
 <div class="footer-note"></div>
 </section>
+
+<section id="pastExamPage" class="hidden">
+  <div class="card">
+    <h2 style="margin-top:0">歷年考題測驗區</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.65">
+      依公開可查的近期測驗紀錄，比對本站 1,523 題題庫後整理。只收錄可穩定對應的題目。
+    </p>
+
+    <div class="past-exam-card">
+      <div class="past-exam-year">
+        <h3>115 年（2026）近期測驗題</h3>
+        <span class="past-exam-badge">56 題已比對</span>
+      </div>
+      <p>來源可確認有一份 2026-06-04 的「營造業甲種職業安全衛生業務主管模擬測驗」80 題成績紀錄；本區只納入其中能與本站題庫穩定對應的題目。</p>
+      <div class="past-exam-actions">
+        <button class="primary" onclick="startPastExam('115',false)">開始練習</button>
+        <button onclick="startPastExam('115',true)">考場模式</button>
+      </div>
+    </div>
+
+    <div class="past-exam-card">
+      <div class="past-exam-year">
+        <h3>114 年（2025）近期測驗題</h3>
+        <span class="past-exam-badge">13 題已比對</span>
+      </div>
+      <p>來源可確認有一份 2025-08-07 的同科目 80 題模擬測驗成績紀錄；公開內容只列出其中 25 題錯題，本區再取能與本站題庫穩定對應者。</p>
+      <div class="past-exam-actions">
+        <button class="primary" onclick="startPastExam('114',false)">開始練習</button>
+        <button onclick="startPastExam('114',true)">考場模式</button>
+      </div>
+    </div>
+
+    <div class="past-exam-note">
+      注意：目前能公開查到的是「測驗／模擬測驗紀錄」，不是主管機關正式公布的完整歷屆試卷，因此本站不會把來源無法確認的題目標示成官方實際考題。
+    </div>
+  </div>
+</section>
+
 <section id="chapterPage" class="hidden"><div class="card"><h2>選擇章節</h2><div id="chapterList" class="mode-grid"></div></div></section>
 <section id="historyPage" class="hidden"><div class="card"><h2>我的成績</h2><div id="historyList"></div></div></section>
 <section id="quiz" class="hidden">
@@ -274,7 +428,7 @@ const $=s=>document.querySelector(s);
 const loadStore=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch(e){return d}};
 const saveStore=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-const hideAll=()=>['home','chapterPage','historyPage','quiz'].forEach(id=>$('#'+id).classList.add('hidden'));
+const hideAll=()=>['home','chapterPage','historyPage','pastExamPage','quiz'].forEach(id=>$('#'+id).classList.add('hidden'));
 const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function goHome(){hideAll();$('#home').classList.remove('hidden');updateStats();window.scrollTo(0,0)}
 function updateStats(){const w=loadStore('wrong',[]),h=loadStore('history',[]);$('#totalCount').textContent=QUESTIONS.length.toLocaleString();$('#wrongCount').textContent=w.length;$('#histCount').textContent=h.length;$('#bestScore').textContent=h.length?Math.max(...h.map(x=>x.score))+'%':'—'}
@@ -295,6 +449,31 @@ function prevQ(){if(idx>0){idx--;render();window.scrollTo(0,0)}}
 function jumpQ(i){idx=i;render();window.scrollTo(0,0)}
 function finish(){if(examMode)session.forEach(q=>updateWrong(q));let correct=session.filter(q=>answers[q.id]===q.answer).length,total=session.length,score=Math.round(correct/total*100);let h=loadStore('history',[]);h.push({date:new Date().toLocaleString('zh-TW'),correct,total,score});saveStore('history',h);alert(`測驗完成！\n答對 ${correct} / ${total} 題\n成績 ${score} 分`);goHome()}
 $('#darkBtn').onclick=()=>{document.body.classList.toggle('dark');localStorage.setItem('dark',document.body.classList.contains('dark')?'1':'0')};if(localStorage.getItem('dark')==='1')document.body.classList.add('dark');updateStats();
+</script>
+
+
+<script id="pastExamScript">
+const PAST_EXAM_SETS={"115":[356,862,831,844,530,1071,377,1276,1148,524,277,1007,1115,946,908,569,996,1318,379,922,33,979,954,1196,1464,34,753,270,579,751,1114,939,791,977,1065,938,997,230,846,853,839,613,614,1336,535,1192,1279,1003,531,464,854,1116,1226,1317,1191,378],"114":[611,1110,754,789,379,576,936,1396,978,530,38,844,1120]};
+
+function showPastExams(){
+  hideAll();
+  const p=document.getElementById('pastExamPage');
+  if(p)p.classList.remove('hidden');
+  const r=document.getElementById('readingView');
+  if(r)r.style.display='none';
+  window.scrollTo(0,0);
+}
+
+function startPastExam(year,examModeOn){
+  const ids=PAST_EXAM_SETS[String(year)]||[];
+  const map=new Map(QUESTIONS.map(q=>[q.id,q]));
+  const list=ids.map(id=>map.get(id)).filter(Boolean);
+  if(!list.length){
+    alert('目前沒有可用的歷年考題資料。');
+    return;
+  }
+  begin(list,!!examModeOn);
+}
 </script>
 
 <footer class="legal-footer">
@@ -455,6 +634,66 @@ if(typeof startQuick!=='function'){
     };
   }
 })();
+</script>
+
+
+<div id="shareModal" class="share-modal-backdrop" onclick="shareBackdropClose(event)">
+  <div class="share-modal" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
+    <h3 id="shareTitle">分享題庫網站</h3>
+    <p>朋友可以直接掃描 QR Code，或把網址分享到 LINE、訊息或其他 App。</p>
+    <img class="share-qr" alt="網站 QR Code" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYAQAAAACv9dQhAAABkElEQVR4nO2ZwYrtMAxDz7m8//9lzcJO2sLArF5uoOkqDYIKo0p2Yvjz+fwNOZiDOZhfnn+AtYwQhJjb7n6cV9eHAEikKwRm7O7HeXl9EAKWegKSubsf5/X1qSclmlLRl/hsjYl78dkAU/opubQtx34fItqN8/L6XLKJqQAz1+5unFdizPPl6czr+eyIEQHtbFeGT/v6fP8AETGjMN33mGHYO3JeigmZ2aXtR0F9ff/zATQtF6p/jm1BJaYdOa/CGDBDMJnObKe8Z/4algMxETAj1l7vPzW/x9k6hzm92660G+fl/Y91pFElGr9XZm+0G+f15xteU6lXtY7/PPvnmi3GCNbt4svr0+eHoypVlrRn9xC2G+f1+uk0l3HK+hDWbpy/kl/DkvuY1S7W6Q9v60s9dJ7l7f58v7/o3mf8bLNt3I3z+vk0SZiRdR8zvsJnO4yOCQwqvVCRvN1/Hphh1HTI49HPbe0YN+yrnpz+535/0dk+x1PMOR8DULWDa3pQFeft+nncX/znbx3MwbwN8wMw3a9BbURrDQAAAABJRU5ErkJggg==">
+    <div class="share-url" id="shareUrlText">https://osha-a-quiz.vercel.app/</div>
+    <div class="share-actions">
+      <button class="share-primary" type="button" onclick="shareSite()">分享網站</button>
+      <button class="share-secondary" type="button" onclick="copySiteUrl()">複製網址</button>
+    </div>
+    <button class="share-secondary share-close" type="button" onclick="closeShareModal()">關閉</button>
+  </div>
+</div>
+
+
+<script id="shareFeatureScript">
+const SHARE_URL='https://osha-a-quiz.vercel.app/';
+const SHARE_TITLE='營造業甲種職業安全衛生業務主管題庫測驗';
+
+function openShareModal(){
+  const m=document.getElementById('shareModal');
+  if(m)m.classList.add('show');
+}
+function closeShareModal(){
+  const m=document.getElementById('shareModal');
+  if(m)m.classList.remove('show');
+}
+function shareBackdropClose(e){
+  if(e.target && e.target.id==='shareModal')closeShareModal();
+}
+async function shareSite(){
+  try{
+    if(navigator.share){
+      await navigator.share({title:SHARE_TITLE,text:'線上題庫練習網站',url:SHARE_URL});
+      return;
+    }
+  }catch(e){
+    if(e && e.name==='AbortError')return;
+  }
+  await copySiteUrl();
+}
+async function copySiteUrl(){
+  try{
+    await navigator.clipboard.writeText(SHARE_URL);
+    const el=document.getElementById('shareUrlText');
+    if(el){
+      const old=el.textContent;
+      el.textContent='已複製網址 ✓';
+      setTimeout(()=>el.textContent=old,1400);
+    }
+  }catch(e){
+    const ta=document.createElement('textarea');
+    ta.value=SHARE_URL;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');ta.remove();
+  }
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeShareModal();});
 </script>
 
 </body>
