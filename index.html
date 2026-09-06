@@ -75,6 +75,16 @@ body.dark .legal-box h2{color:#f8fafc}
 body.dark .legal-box h3{color:#93c5fd}
 </style>
 
+
+<style id="quizFlowFix">
+/* 測驗進行中：題目永遠優先顯示，模式選擇不得擋在題目前面 */
+body.quiz-active .home-only-panel,
+body.quiz-active #publicLearningModes{display:none!important}
+body.quiz-active #quizView{display:block!important}
+body.quiz-active #quizView .card{margin-top:0}
+.quiz-bottom-tools{margin-top:28px;padding-top:20px;border-top:1px solid #e5e7eb}
+</style>
+
 </head>
 <body>
 <header class="header">
@@ -121,7 +131,7 @@ body.dark .legal-box h3{color:#93c5fd}
 </div>
 <div class="footer-note"></div>
 </section>
-<section id="publicLearningModes" class="card" style="margin-top:18px">
+<section id="publicLearningModes" class="card home-only-panel" style="margin-top:18px">
   <h2>請選擇學習模式</h2>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:14px">
     <button onclick="showReading()" style="padding:20px;border-radius:16px;border:1px solid #dbe3ec;background:var(--card,#fff);text-align:left;font-size:17px"><b>📖 閱讀模式</b><br><span style="font-size:14px;color:#64748b">完整題庫、搜尋、章節篩選與答案背誦</span></button>
@@ -297,6 +307,59 @@ if(typeof startQuick!=='function'){
     if(btn) btn.click();
   }
 }
+</script>
+
+
+<script id="quizFlowFixScript">
+(function(){
+  function hideHomeExtras(){
+    document.body.classList.add('quiz-active');
+    const x=document.getElementById('publicLearningModes');
+    if(x) x.style.display='none';
+  }
+  function showHomeExtras(){
+    document.body.classList.remove('quiz-active');
+    const x=document.getElementById('publicLearningModes');
+    if(x) x.style.display='';
+  }
+
+  // 包裝所有常見的開始測驗函式：一開始就把首頁模式卡收起來
+  ['startQuick','startRandom','startMode','startExam','startWrong','startChapter','startCustom','beginQuiz']
+    .forEach(name=>{
+      const old=window[name];
+      if(typeof old==='function'){
+        window[name]=function(){ hideHomeExtras(); return old.apply(this,arguments); };
+      }
+    });
+
+  // 下一題／確認答案後，若 quizView 正在顯示，就保持題目在最上方可見。
+  document.addEventListener('click',function(e){
+    const b=e.target.closest('button');
+    if(!b)return;
+    const txt=(b.textContent||'').trim();
+    if(/確認答案|下一題|上一題/.test(txt)){
+      hideHomeExtras();
+      setTimeout(()=>{
+        const q=document.getElementById('quizView');
+        if(q && getComputedStyle(q).display!=='none'){
+          q.scrollIntoView({block:'start',behavior:'auto'});
+        }
+      },0);
+    }
+  },true);
+
+  // 回首頁才恢復模式選擇
+  const oldHome=window.goHome;
+  if(typeof oldHome==='function'){
+    window.goHome=function(){ const r=oldHome.apply(this,arguments); showHomeExtras(); return r; };
+  }
+
+  // 閱讀模式也屬於另一模式：隱藏首頁選擇卡
+  const oldRead=window.showReading;
+  if(typeof oldRead==='function'){
+    window.showReading=function(){ hideHomeExtras(); return oldRead.apply(this,arguments); };
+  }
+})();
 </script>
 
 </body>
