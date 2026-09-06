@@ -415,6 +415,278 @@ button.primary,.primary,.action.primary,#confirmBtn{background:linear-gradient(1
 body.dark{--bg:#121A21;--card:#1B2730;--text:#EDF3F5;--muted:#A8B7BF;--line:#30414B;--soft:#23343E;background:linear-gradient(180deg,#121A21,#162129)!important}body.dark .card,body.dark .quiz-card,body.dark .chapter-card,body.dark .history-card,body.dark .past-exam-card,body.dark .stat{background:#1B2730!important;border-color:#30414B!important}body.dark .mode{background:linear-gradient(145deg,#1D2B34,#18252D)!important;border-color:#30414B!important}body.dark .mode h3,body.dark .section-title,body.dark .hero h1,body.dark .stat b{color:#EAF2F5!important}body.dark .choice{background:#1B2730!important;border-color:#344852!important}body.dark .subject-card{background:linear-gradient(145deg,#1B2730,#18232B)!important;border-color:#30414B!important}body.dark .subject-card h2,body.dark .subject-hero h1{color:#EEF4F6!important}
 @media(max-width:620px){.wrap{padding-left:14px!important;padding-right:14px!important}.hero{padding:24px 4px 14px!important}.mode-grid{gap:10px!important}.mode{border-radius:16px!important}}
 </style>
+
+<style id="figureTwoTheme">
+:root{
+  --blue:#2F6F96;
+  --blue-deep:#234E6A;
+  --blue-soft:#EAF4F9;
+  --orange:#E9822B;
+  --orange-soft:#FFF2E6;
+  --green:#2E8B67;
+  --red:#D85E5E;
+  --ink:#17324A;
+  --text:#263746;
+  --muted:#6F8594;
+  --line:#D8E5EC;
+  --bg:#F6FAFC;
+  --card:#FFFFFF;
+}
+html{background:#edf5f8}
+body{
+  background:
+    linear-gradient(180deg,#edf6fb 0,#f7fbfd 28rem,#f4f8fa 100%)!important;
+  color:var(--text)!important;
+}
+.wrap{max-width:980px!important;padding:0 14px 30px!important}
+
+/* Header = 圖2 */
+#mainHeader{
+  background:
+    radial-gradient(circle at 84% 18%,rgba(255,255,255,.11),transparent 17rem),
+    linear-gradient(135deg,#2A6488 0%,#3F85AC 100%)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  border:0!important;
+  position:relative;
+  overflow:hidden;
+}
+#mainHeader:after{
+  content:"";
+  position:absolute;right:-20px;bottom:-6px;width:300px;height:150px;
+  opacity:.14;
+  background:
+    linear-gradient(90deg,transparent 0 20%,rgba(255,255,255,.35) 20% 21%,transparent 21% 36%,rgba(255,255,255,.25) 36% 37%,transparent 37%),
+    linear-gradient(150deg,transparent 40%,rgba(255,255,255,.25) 40% 42%,transparent 42%);
+  transform:skewX(-12deg);
+}
+#mainHeader .header-inner{position:relative;z-index:1;padding:18px 16px 16px!important}
+#mainHeader .brand-row{align-items:flex-start!important;gap:12px}
+#mainHeader .brand{
+  font-size:clamp(26px,6vw,34px)!important;
+  line-height:1.15!important;
+  font-weight:900!important;
+  letter-spacing:.01em;
+  color:#fff!important;
+}
+#mainHeader .top-actions{
+  display:flex!important;
+  gap:8px!important;
+  margin-left:auto!important;
+  width:auto!important;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+#mainHeader .top-actions button{
+  border:1px solid rgba(255,255,255,.55)!important;
+  background:rgba(255,255,255,.08)!important;
+  color:#fff!important;
+  border-radius:12px!important;
+  padding:9px 11px!important;
+  font-size:13px!important;
+  min-height:38px!important;
+  box-shadow:none!important;
+}
+#mainHeader .nav{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:10px!important;
+  margin-top:18px!important;
+}
+#mainHeader .nav button{
+  min-height:98px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  padding:12px 8px!important;
+  border-radius:16px!important;
+  border:1px solid rgba(255,255,255,.50)!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.17),rgba(255,255,255,.10))!important;
+  color:#fff!important;
+  font-size:15px!important;
+  font-weight:900!important;
+  line-height:1.2!important;
+  box-shadow:0 8px 18px rgba(20,60,85,.12);
+}
+#mainHeader .nav button .nav-icon{
+  font-size:28px;line-height:1;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.08));
+}
+#mainHeader .nav button:nth-child(1){
+  background:linear-gradient(180deg,#FFF7F0,#FCEADB)!important;
+  border-color:#F3D1B5!important;
+  color:#A95420!important;
+}
+#mainHeader .nav button:nth-child(1) .nav-icon{color:#E16F26}
+#mainHeader .nav button:nth-child(2),
+#mainHeader .nav button:nth-child(4),
+#mainHeader .nav button:nth-child(5),
+#mainHeader .nav button:nth-child(6),
+#mainHeader .nav button:nth-child(7),
+#mainHeader .nav button:nth-child(8),
+#mainHeader .nav button:nth-child(9){color:#fff!important}
+
+/* 主頁 */
+.hero{display:none!important}
+.stats{
+  margin-top:14px!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:10px!important;
+}
+.stat{
+  background:#fff!important;
+  border:1px solid var(--line)!important;
+  border-radius:16px!important;
+  box-shadow:0 8px 20px rgba(39,84,113,.06)!important;
+  padding:14px 10px!important;
+}
+.stat b{color:var(--blue-deep)!important}
+.section-title{color:var(--ink)!important;font-size:18px!important;margin:18px 0 10px!important}
+
+/* 首頁功能卡改成圖2風格 */
+.mode-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:10px!important;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(255,255,255,.8);
+  border-radius:18px;
+  padding:10px;
+  box-shadow:0 10px 26px rgba(40,85,112,.07);
+}
+.mode{
+  min-height:150px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  gap:6px!important;
+  background:linear-gradient(145deg,#fff,#f2f7fa)!important;
+  border:1px solid #DDE8EE!important;
+  border-radius:16px!important;
+  box-shadow:0 8px 18px rgba(47,94,122,.06)!important;
+  padding:14px 10px!important;
+}
+.mode:first-child{
+  background:linear-gradient(145deg,#FFF8F2,#FBEBDD)!important;
+  border-color:#F1D1B6!important;
+}
+.mode h3{font-size:16px!important;color:var(--blue-deep)!important;margin:0!important}
+.mode:first-child h3{color:#A95420!important}
+.mode p{font-size:12px!important;color:var(--muted)!important;margin:0!important;line-height:1.4!important}
+.mode .mode-icon{
+  font-size:30px;
+  line-height:1;
+  margin-bottom:4px;
+}
+
+/* 目前科目卡 */
+#home:before{
+  content:"目前科目";
+  display:block;
+  margin:16px 4px 8px;
+  font-size:13px;font-weight:800;color:var(--muted);
+}
+#home{
+  position:relative;
+}
+#home .stats{margin-bottom:8px}
+.subject-summary{
+  display:flex;align-items:center;gap:14px;
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:16px;margin:14px 0;
+}
+
+/* 所有一般卡片 */
+.card,.quiz-card,.chapter-card,.history-card,.past-exam-card{
+  background:#fff!important;
+  border:1px solid var(--line)!important;
+  border-radius:18px!important;
+  box-shadow:0 8px 24px rgba(47,94,122,.06)!important;
+}
+button.primary,.primary,.action.primary,#confirmBtn{
+  background:linear-gradient(135deg,#E9822B,#DA731F)!important;
+  color:#fff!important;
+  border-color:transparent!important;
+  border-radius:14px!important;
+}
+.choice{border-radius:14px!important;background:#fff!important;border:1px solid #D8E5EC!important}
+.choice.selected{background:#EEF6FA!important;border-color:#6FA5C5!important}
+.choice.correct{background:#EDF9F3!important;border-color:#88CBAE!important}
+.choice.wrong{background:#FFF0F0!important;border-color:#E3A0A0!important}
+
+/* 聯絡區照圖2 */
+.contact-line-wrap{margin-top:18px!important}
+.contact-line-card{
+  background:linear-gradient(135deg,#244E69,#2F6689)!important;
+  border:0!important;
+  border-radius:18px!important;
+  padding:18px!important;
+  color:#fff!important;
+  box-shadow:0 10px 24px rgba(31,74,102,.16)!important;
+}
+.contact-line-card h3{color:#fff!important;font-size:18px!important}
+.contact-line-grid{grid-template-columns:1fr 1fr!important}
+.contact-line-card .contact-item{
+  background:rgba(255,255,255,.12)!important;
+  border:1px solid rgba(255,255,255,.18)!important;
+  color:#fff!important;
+  border-radius:14px!important;
+}
+.contact-line-card .contact-item strong{color:#fff!important}
+.contact-line-card .contact-item span,.contact-line-card .contact-line-note{color:#D9E8F0!important}
+
+/* 科目選擇頁保持乾淨但同步配色 */
+.subject-hero h1{color:var(--blue-deep)!important}
+.subject-kicker{color:var(--blue)!important}
+.subject-card{
+  background:#fff!important;
+  border:1px solid var(--line)!important;
+  box-shadow:0 10px 24px rgba(47,94,122,.07)!important;
+}
+.subject-card h2{color:var(--blue-deep)!important}
+.subject-card:before{background:linear-gradient(180deg,#E9822B,#D87325)!important}
+.subject-card span{background:var(--orange-soft)!important;color:#B65B20!important}
+
+/* Dark mode */
+body.dark{
+  --bg:#121A21;--card:#1B2730;--text:#EDF4F7;--muted:#A9BAC4;--line:#314651;
+  background:linear-gradient(180deg,#121A21,#16222B)!important;
+}
+body.dark .stat,body.dark .mode,body.dark .card,body.dark .quiz-card,
+body.dark .chapter-card,body.dark .history-card,body.dark .past-exam-card,
+body.dark .subject-card{
+  background:#1B2730!important;border-color:#314651!important;color:#EDF4F7!important;
+}
+body.dark .mode:first-child{background:#2E261F!important;border-color:#5A4634!important}
+body.dark .mode h3,body.dark .section-title,body.dark .stat b,body.dark .subject-card h2{color:#EDF4F7!important}
+body.dark .choice{background:#1B2730!important;border-color:#314651!important}
+
+@media(max-width:620px){
+  #mainHeader .header-inner{padding:14px 12px 16px!important}
+  #mainHeader .brand{font-size:27px!important}
+  #mainHeader .top-actions{
+    display:grid!important;
+    grid-template-columns:repeat(3,1fr)!important;
+    width:100%!important;
+    margin-top:12px!important;
+  }
+  #mainHeader .nav{grid-template-columns:repeat(3,1fr)!important}
+  #mainHeader .nav button{min-height:104px!important;font-size:14px!important;padding:10px 6px!important}
+  #mainHeader .nav button .nav-icon{font-size:27px}
+  .stats{grid-template-columns:repeat(2,1fr)!important}
+  .mode-grid{grid-template-columns:repeat(3,1fr)!important}
+  .mode{min-height:132px!important;padding:10px 6px!important}
+  .mode h3{font-size:14px!important}
+  .mode p{font-size:11px!important}
+  .contact-line-grid{grid-template-columns:1fr!important}
+}
+</style>
+
 </head>
 <body class="subject-landing">
 <header class="header" id="mainHeader">
@@ -422,20 +694,20 @@ body.dark{--bg:#121A21;--card:#1B2730;--text:#EDF3F5;--muted:#A8B7BF;--line:#304
 <div class="brand-row">
 <div class="brand" id="siteBrand">線上題庫測驗</div>
 <div class="top-actions">
-<button class="share-site-btn" type="button" onclick="openShareModal()">↗ 分享網站</button>
+<button class="share-site-btn" type="button" onclick="openShareModal()">📤 分享網站</button>
 <button class="top-btn" id="darkBtn">🌙 深色模式</button>
-<button class="top-btn" onclick="showSubjectSelect()">⌂ 選擇科目</button>
+<button class="top-btn" onclick="showSubjectSelect()">🗂 選擇科目</button>
 </div>
 </div>
 <nav class="nav">
-<button onclick="startRandom(20)">快速20題</button>
-<button onclick="startRandom(50)">隨機50題</button>
-<button onclick="showChapters()">章節練習</button>
-<button onclick="startExam()">考場模式</button>
-<button onclick="startWrong()">錯題複習</button>
-<button onclick="showHistory()">我的成績</button>
-<button id="pastNavBtn" onclick="showPastExams()">歷年考題</button>
-<button onclick="showReading()">閱讀模式</button><button onclick="goHome()">題庫首頁</button>
+<button onclick="startRandom(20)"><span class="nav-icon">🧾</span>快速20題</button>
+<button onclick="startRandom(50)"><span class="nav-icon">🔀</span>隨機50題</button>
+<button onclick="showChapters()"><span class="nav-icon">📖</span>章節練習</button>
+<button onclick="startExam()"><span class="nav-icon">🕒</span>考場模式</button>
+<button onclick="startWrong()"><span class="nav-icon">🧮</span>錯題複習</button>
+<button onclick="showHistory()"><span class="nav-icon">📊</span>我的成績</button>
+<button id="pastNavBtn" onclick="showPastExams()"><span class="nav-icon">🗓️</span>歷年考題</button>
+<button onclick="showReading()"><span class="nav-icon">📘</span>閱讀模式</button><button onclick="goHome()"><span class="nav-icon">🏠</span>題庫首頁</button>
 </nav>
 </div>
 </header>
@@ -475,13 +747,27 @@ body.dark{--bg:#121A21;--card:#1B2730;--text:#EDF3F5;--muted:#A8B7BF;--line:#304
 <div class="stat"><b id="histCount">0</b><span>歷史測驗次數</span></div>
 <div class="stat"><b id="bestScore">—</b><span>歷史最佳成績</span></div>
 </div>
+
+<div id="subjectSummary" class="subject-summary">
+  <div style="font-size:42px" id="subjectSummaryIcon">🦺</div>
+  <div style="flex:1">
+    <div style="font-size:12px;font-weight:800;color:var(--muted)">目前科目</div>
+    <div style="font-size:22px;font-weight:900;color:var(--blue-deep)" id="subjectSummaryName"></div>
+    <div style="font-size:13px;color:var(--muted);margin-top:3px" id="subjectSummaryDesc"></div>
+  </div>
+  <div style="text-align:right">
+    <div style="display:inline-block;background:var(--orange-soft);color:#B65B20;padding:5px 8px;border-radius:999px;font-size:12px;font-weight:800" id="subjectSummaryTag"></div>
+    <div style="font-size:24px;font-weight:900;color:var(--blue);margin-top:6px" id="subjectSummaryCount"></div>
+  </div>
+</div>
+
 <h2 class="section-title">開始練習</h2>
 <div class="mode-grid">
-<button class="mode" onclick="startRandom(20)"><h3>⚡ 快速練習 20 題</h3><p>隨機抽題，答完立即看正確答案。</p></button>
-<button class="mode" onclick="startRandom(50)"><h3>🎯 隨機測驗 50 題</h3><p>完整作答與計分。</p></button>
-<button class="mode" onclick="showChapters()"><h3>📚 章節練習</h3><p>依原題庫章節分類選題。</p></button>
-<button class="mode" onclick="startExam()"><h3>⏱️ 考場模式</h3><p>50題、不立即顯示答案，最後統一計分。</p></button>
-<button class="mode" onclick="startWrong()"><h3>📝 錯題複習</h3><p>只練曾經答錯的題目。</p></button>
+<button class="mode" onclick="startRandom(20)"><div class="mode-icon">🧾</div><h3>⚡ 快速練習 20 題</h3><p>隨機抽題，答完立即看正確答案。</p></button>
+<button class="mode" onclick="startRandom(50)"><div class="mode-icon">🔀</div><h3>🎯 隨機測驗 50 題</h3><p>完整作答與計分。</p></button>
+<button class="mode" onclick="showChapters()"><div class="mode-icon">📖</div><h3>📚 章節練習</h3><p>依原題庫章節分類選題。</p></button>
+<button class="mode" onclick="startExam()"><div class="mode-icon">🕒</div><h3>⏱️ 考場模式</h3><p>50題、不立即顯示答案，最後統一計分。</p></button>
+<button class="mode" onclick="startWrong()"><div class="mode-icon">🧮</div><h3>📝 錯題複習</h3><p>只練曾經答錯的題目。</p></button>
 <button class="mode" onclick="customStart()"><h3>🔢 自訂題數</h3><p>自訂 10～200 題。</p></button>
 <button id="pastModeBtn" class="mode" onclick="showPastExams()"><h3>🗓️ 歷年考題測驗</h3><p>114、115 年公開測驗紀錄比對題。</p></button>
 </div>
@@ -880,6 +1166,16 @@ function applySubjectUI(){
   if(brand)brand.innerHTML=(CURRENT_SUBJECT==='quality'?'品管（土建）':'甲種職業安全衛生')+'<br>線上題庫';
   if(kicker)kicker.textContent=cfg.full;
   if(title)title.innerHTML=cfg.name+'<br>線上題庫';
+  const ssName=document.getElementById('subjectSummaryName');
+  const ssDesc=document.getElementById('subjectSummaryDesc');
+  const ssTag=document.getElementById('subjectSummaryTag');
+  const ssCount=document.getElementById('subjectSummaryCount');
+  const ssIcon=document.getElementById('subjectSummaryIcon');
+  if(ssName)ssName.textContent=cfg.name;
+  if(ssDesc)ssDesc.textContent=cfg.full;
+  if(ssCount)ssCount.textContent=cfg.questions.length.toLocaleString()+' 題';
+  if(ssIcon)ssIcon.textContent=CURRENT_SUBJECT==='quality'?'👷':'🦺';
+  if(ssTag)ssTag.textContent=CURRENT_SUBJECT==='quality'?'115年1月起適用':'甲種職安題庫';
   if(pastMode){
     const h=pastMode.querySelector('h3'), desc=pastMode.querySelector('p');
     if(h)h.textContent='🗓️ 114–115年歷年考題';
