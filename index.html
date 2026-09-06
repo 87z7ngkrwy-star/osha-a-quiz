@@ -315,6 +315,106 @@ body.subject-landing #subjectSelect{padding-top:10px}
 body.subject-landing main{padding-top:0}
 </style>
 
+
+<style id="contactLineStyle">
+.contact-line-wrap{
+  margin:22px auto 8px;
+  max-width:760px;
+}
+.contact-line-card{
+  background:var(--card,#fff);
+  border:1px solid var(--line,#dce4ee);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 8px 24px rgba(15,23,42,.05);
+}
+.contact-line-card h3{
+  margin:0 0 14px;
+  font-size:20px;
+}
+.contact-line-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:1px solid var(--line,#dce4ee);
+  border-radius:14px;
+  padding:14px;
+  background:rgba(148,163,184,.06);
+  text-decoration:none;
+  color:var(--text,#0f172a);
+}
+.contact-item .ico{
+  width:38px;height:38px;
+  display:grid;place-items:center;
+  border-radius:11px;
+  font-size:22px;
+  background:rgba(59,130,246,.10);
+  flex:0 0 auto;
+}
+.contact-item strong{display:block;font-size:15px;margin-bottom:3px}
+.contact-item span{display:block;font-size:13px;color:var(--muted,#64748b);word-break:break-all}
+.contact-item.line .ico{background:rgba(34,197,94,.12)}
+.contact-item.line strong{color:#22a447}
+.contact-line-note{
+  margin-top:12px;
+  font-size:12px;
+  line-height:1.6;
+  color:var(--muted,#64748b);
+}
+@media(max-width:620px){
+  .contact-line-card{padding:16px}
+  .contact-line-grid{grid-template-columns:1fr}
+  .contact-item{padding:13px}
+}
+</style>
+
+
+<style id="contactLandingFix">
+body.subject-landing #contactLineSection{display:none!important}
+</style>
+
+
+<style id="subjectSelectedLayoutFix">
+body.subject-active #subjectSelect{display:none!important}
+body.subject-active #mainHeader .header-inner{padding-bottom:16px}
+body.subject-active #mainHeader .brand{font-size:24px!important;line-height:1.22!important}
+body.subject-active #mainHeader .top-actions{gap:10px!important}
+body.subject-active #mainHeader .top-actions button{font-size:15px!important;padding:10px 13px!important;min-height:42px}
+body.subject-active #mainHeader .nav{margin-top:16px!important;gap:10px 14px!important}
+body.subject-active #mainHeader .nav button{font-size:17px!important;line-height:1.3!important;padding:8px 4px!important;min-height:40px;font-weight:800!important}
+@media(max-width:620px){
+  body.subject-active #mainHeader .header-inner{padding-left:16px!important;padding-right:16px!important;padding-bottom:18px!important}
+  body.subject-active #mainHeader .brand{font-size:23px!important}
+  body.subject-active #mainHeader .top-actions{display:grid!important;grid-template-columns:repeat(3,1fr)!important;width:100%;margin-top:12px}
+  body.subject-active #mainHeader .top-actions button{font-size:14px!important;padding:10px 6px!important;width:100%}
+  body.subject-active #mainHeader .nav{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:8px 10px!important;width:100%}
+  body.subject-active #mainHeader .nav button{font-size:16px!important;padding:9px 2px!important}
+}
+</style>
+
+<style id="schemeOnePremiumTheme">
+:root{--blue:#3F6F8F;--blue2:#294C60;--accent:#D99A5B;--bg:#F4F7F8;--card:#FFF;--text:#17232C;--muted:#667680;--line:#D8E1E5;--soft:#EAF1F4;--ok:#2F8A67;--bad:#C95C5C}
+body{background:radial-gradient(circle at 90% 0%,rgba(63,111,143,.09),transparent 28rem),linear-gradient(180deg,#F8FAFB,#EEF3F5)!important;color:var(--text)!important}
+#mainHeader{background:linear-gradient(135deg,#294C60,#3F6F8F)!important;box-shadow:0 8px 28px rgba(41,76,96,.18);border-bottom:1px solid rgba(255,255,255,.12)}
+#mainHeader .brand{color:#fff!important}
+#mainHeader .top-actions button{background:rgba(255,255,255,.10)!important;color:#fff!important;border:1px solid rgba(255,255,255,.30)!important}
+#mainHeader .nav button{color:#F7FBFD!important;border-radius:12px}
+.wrap{max-width:980px}.hero{padding:30px 18px 18px!important;text-align:left!important}.hero .kicker{color:var(--blue)!important;font-weight:800}.hero h1{color:var(--text)!important}
+.stats{gap:10px!important}.stat{background:rgba(255,255,255,.88)!important;border:1px solid var(--line)!important;border-radius:16px!important;box-shadow:0 8px 24px rgba(41,76,96,.06)!important}.stat b{color:var(--blue2)!important}
+.section-title{color:var(--blue2)!important}.mode-grid{gap:12px!important}.mode{background:linear-gradient(145deg,#FFF,#F4F8FA)!important;border:1px solid #D6E1E6!important;border-radius:18px!important;box-shadow:0 10px 24px rgba(41,76,96,.07)!important}.mode h3{color:var(--blue2)!important}.mode p{color:var(--muted)!important}.mode:first-child{background:linear-gradient(145deg,#FFF9F3,#F9EEE3)!important;border-color:#EDD3B7!important}.mode:first-child h3{color:#B7652C!important}
+.card,.quiz-card,.chapter-card,.history-card,.past-exam-card{background:rgba(255,255,255,.94)!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:0 10px 28px rgba(41,76,96,.07)!important}
+button.primary,.primary,.action.primary,#confirmBtn{background:linear-gradient(135deg,#D99A5B,#C97D3C)!important;color:#fff!important;border-color:transparent!important;box-shadow:0 7px 18px rgba(201,125,60,.20)!important}
+.choice{background:#fff!important;border-color:#D7E1E5!important;border-radius:15px!important}.choice:hover,.choice.selected{border-color:var(--blue)!important;background:#EEF5F8!important}.choice.correct{border-color:#72B99A!important;background:#EDF8F3!important}.choice.wrong{border-color:#D98A8A!important;background:#FFF1F1!important}.past-exam-badge{background:#FFF1E2!important;color:#B8652D!important}
+.subject-hero{padding-top:34px!important}.subject-kicker{color:var(--blue)!important}.subject-hero h1{color:var(--blue2)!important}.subject-grid{gap:16px!important}.subject-card{background:linear-gradient(145deg,#FFF,#F5F8F9)!important;border:1px solid #D4E0E5!important;border-radius:22px!important;box-shadow:0 14px 34px rgba(41,76,96,.09)!important;position:relative;overflow:hidden}.subject-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,#D99A5B,#C67C40)}.subject-card h2{color:var(--blue2)!important}.subject-card span{display:inline-block;background:#FFF0DF;color:#B8652D!important;padding:6px 9px;border-radius:999px}.subject-icon{width:52px;height:52px;display:grid;place-items:center;background:#EEF4F6;border-radius:15px}
+.contact-line-card{background:linear-gradient(135deg,#294C60,#203E50)!important;border-color:rgba(255,255,255,.08)!important;color:#fff!important}.contact-line-card h3,.contact-line-card .contact-item strong{color:#fff!important}.contact-line-card .contact-item{background:rgba(255,255,255,.10)!important;border-color:rgba(255,255,255,.18)!important;color:#fff!important}.contact-line-card .contact-item span,.contact-line-card .contact-line-note{color:#DDE8ED!important}
+body.dark{--bg:#121A21;--card:#1B2730;--text:#EDF3F5;--muted:#A8B7BF;--line:#30414B;--soft:#23343E;background:linear-gradient(180deg,#121A21,#162129)!important}body.dark .card,body.dark .quiz-card,body.dark .chapter-card,body.dark .history-card,body.dark .past-exam-card,body.dark .stat{background:#1B2730!important;border-color:#30414B!important}body.dark .mode{background:linear-gradient(145deg,#1D2B34,#18252D)!important;border-color:#30414B!important}body.dark .mode h3,body.dark .section-title,body.dark .hero h1,body.dark .stat b{color:#EAF2F5!important}body.dark .choice{background:#1B2730!important;border-color:#344852!important}body.dark .subject-card{background:linear-gradient(145deg,#1B2730,#18232B)!important;border-color:#30414B!important}body.dark .subject-card h2,body.dark .subject-hero h1{color:#EEF4F6!important}
+@media(max-width:620px){.wrap{padding-left:14px!important;padding-right:14px!important}.hero{padding:24px 4px 14px!important}.mode-grid{gap:10px!important}.mode{border-radius:16px!important}}
+</style>
 </head>
 <body class="subject-landing">
 <header class="header" id="mainHeader">
@@ -523,6 +623,32 @@ function startPastExam(year,examModeOn){
   begin(list,!!examModeOn);
 }
 </script>
+
+
+<section id="contactLineSection" class="contact-line-wrap">
+  <div class="contact-line-card">
+    <h3>聯絡我們</h3>
+    <div class="contact-line-grid">
+      <a class="contact-item" id="contactEmailLink" href="#" onclick="return contactNotSet('email')">
+        <div class="ico">✉️</div>
+        <div>
+          <strong>電子郵件</strong>
+          <span id="contactEmailText">尚未設定</span>
+        </div>
+      </a>
+      <a class="contact-item line" id="officialLineLink" href="#" onclick="return contactNotSet('line')">
+        <div class="ico">💬</div>
+        <div>
+          <strong>官方 LINE</strong>
+          <span id="officialLineText">尚未設定</span>
+        </div>
+      </a>
+    </div>
+    <div class="contact-line-note">
+      可用於商務合作、題庫錯誤回報與網站問題聯絡。
+    </div>
+  </div>
+</section>
 
 <footer class="legal-footer">
   <div class="legal-links">
@@ -768,6 +894,9 @@ function applySubjectUI(){
 function selectSubject(key){
   if(!SUBJECTS[key])return;
   document.body.classList.remove('subject-landing');
+  document.body.classList.add('subject-active');
+  const selector=document.getElementById('subjectSelect');
+  if(selector){selector.classList.add('hidden');selector.style.display='none';}
   CURRENT_SUBJECT=key;
   QUESTIONS=SUBJECTS[key].questions;
   applySubjectUI();
@@ -776,9 +905,11 @@ function selectSubject(key){
   window.scrollTo(0,0);
 }
 function showSubjectSelect(){
+  document.body.classList.remove('subject-active');
   document.body.classList.add('subject-landing');
   hideAll();
   const r=document.getElementById('readingView'); if(r)r.style.display='none';
+  document.getElementById('subjectSelect').style.display='';
   document.getElementById('subjectSelect').classList.remove('hidden');
   document.getElementById('siteBrand').innerHTML='線上題庫測驗';
   window.scrollTo(0,0);
@@ -788,12 +919,23 @@ function showSubjectSelect(){
 
 <script id="multiSubjectInit">
 document.addEventListener('DOMContentLoaded',function(){
+  document.body.classList.remove('subject-active');
   document.body.classList.add('subject-landing');
   const home=document.getElementById('home');
   if(home)home.classList.add('hidden');
   const sel=document.getElementById('subjectSelect');
   if(sel)sel.classList.remove('hidden');
 });
+</script>
+
+
+<script id="contactLineScript">
+function contactNotSet(type){
+  alert(type==='email'
+    ? '電子郵件尚未設定。'
+    : '官方 LINE 尚未設定。');
+  return false;
+}
 </script>
 
 </body>
