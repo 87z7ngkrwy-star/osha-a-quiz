@@ -669,6 +669,7 @@ body.dark .ref-secondary-action{background:#1b2831!important;color:#dcecf4!impor
   .ref-contact-btn{font-size:12px;padding:9px 10px}
 }
 </style>
+<style id="qaDarkButtonStyle">.footer-theme-btn{border:0;background:transparent;color:inherit;font:inherit;font-weight:700;padding:6px 10px;margin-bottom:8px;cursor:pointer}</style>
 </head>
 <body class="subject-landing">
 <header class="header" id="mainHeader">
@@ -870,10 +871,17 @@ const $=s=>document.querySelector(s);
 const loadStore=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch(e){return d}};
 const saveStore=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-const hideAll=()=>['subjectSelect','home','chapterPage','historyPage','pastExamPage','quiz'].forEach(id=>{const e=$('#'+id);if(e)e.classList.add('hidden')});
+const hideAll=()=>{['subjectSelect','home','chapterPage','historyPage','pastExamPage','quiz'].forEach(id=>{const e=$('#'+id);if(e)e.classList.add('hidden')});const rv=document.getElementById('readingView');if(rv)rv.style.display='none'};
 const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function goHome(){hideAll();$('#home').classList.remove('hidden');updateStats();window.scrollTo(0,0)}
-function updateStats(){const w=loadStore(CURRENT_SUBJECT+'_wrong',[]),h=loadStore(CURRENT_SUBJECT+'_history',[]);$('#totalCount').textContent=QUESTIONS.length.toLocaleString();$('#wrongCount').textContent=w.length;$('#histCount').textContent=h.length;$('#bestScore').textContent=h.length?Math.max(...h.map(x=>x.score))+'%':'—'}
+function goHome(){hideAll();const rv=document.getElementById('readingView');if(rv)rv.style.display='none';$('#home').classList.remove('hidden');updateStats();window.scrollTo(0,0)}
+function updateStats(){
+  const w=loadStore(CURRENT_SUBJECT+'_wrong',[]), h=loadStore(CURRENT_SUBJECT+'_history',[]);
+  const total=document.getElementById('totalCount'), wrong=document.getElementById('wrongCount'), hist=document.getElementById('histCount'), best=document.getElementById('bestScore');
+  if(total)total.textContent=QUESTIONS.length.toLocaleString();
+  if(wrong)wrong.textContent=w.length;
+  if(hist)hist.textContent=h.length;
+  if(best)best.textContent=h.length?Math.max(...h.map(x=>x.score))+'%':'—';
+}
 function startRandom(n){begin(shuffle(QUESTIONS).slice(0,n),false)}
 function startExam(){begin(shuffle(QUESTIONS).slice(0,50),true)}
 function customStart(){let n=parseInt(prompt('請輸入題數（10～200）','100')||'0');if(n>=10&&n<=200)startRandom(n)}
@@ -890,7 +898,7 @@ function updateWrong(q){let w=loadStore(CURRENT_SUBJECT+'_wrong',[]),ok=answers[
 function prevQ(){if(idx>0){idx--;render();window.scrollTo(0,0)}}
 function jumpQ(i){idx=i;render();window.scrollTo(0,0)}
 function finish(){if(examMode)session.forEach(q=>updateWrong(q));let correct=session.filter(q=>answers[q.id]===q.answer).length,total=session.length,score=Math.round(correct/total*100);let h=loadStore(CURRENT_SUBJECT+'_history',[]);h.push({date:new Date().toLocaleString('zh-TW'),correct,total,score});saveStore(CURRENT_SUBJECT+'_history',h);alert(`測驗完成！\n答對 ${correct} / ${total} 題\n成績 ${score} 分`);goHome()}
-$('#darkBtn').onclick=()=>{document.body.classList.toggle('dark');localStorage.setItem('dark',document.body.classList.contains('dark')?'1':'0')};if(localStorage.getItem('dark')==='1')document.body.classList.add('dark');updateStats();
+window.toggleDarkMode=()=>{document.body.classList.toggle('dark');localStorage.setItem('dark',document.body.classList.contains('dark')?'1':'0')};const darkBtn=$('#darkBtn');if(darkBtn)darkBtn.onclick=window.toggleDarkMode;if(localStorage.getItem('dark')==='1')document.body.classList.add('dark');updateStats();
 </script>
 
 
@@ -958,7 +966,7 @@ function startPastExam(year,examModeOn){
   </div>
 </section>
 
-<footer class="legal-footer">
+<footer class="legal-footer"><button id="darkBtn" type="button" class="footer-theme-btn">🌙 深色模式</button>
   <div class="legal-links">
     <button onclick="openLegal('about')">關於本站</button>
     <button onclick="openLegal('source')">資料來源</button>
@@ -1023,6 +1031,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLegal()});
 
 <script id="readingModeScript">
 function showReading(){
+  hideAll();
   document.querySelectorAll('.view').forEach(v=>v.style.display='none');
   const rv=document.getElementById('readingView'); if(rv) rv.style.display='block';
   const sel=document.getElementById('bankSection');
@@ -1183,13 +1192,18 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeShareModal();})
 function applySubjectUI(){
   const cfg=SUBJECTS[CURRENT_SUBJECT];
   const refMainIcon=document.getElementById('refSubjectIcon');
-  if(refMainIcon)refMainIcon.textContent=CURRENT_SUBJECT==='quality'?'🏗️':'🦺';
-  const refIcon=document.getElementById('refSubjectIcon');
-  if(refIcon)refIcon.textContent=CURRENT_SUBJECT==='quality'?'🏗️':'🦺';
   const brand=document.getElementById('siteBrand');
   const kicker=document.getElementById('subjectKicker');
   const title=document.getElementById('subjectTitle');
-  if(brand)brand.textContent=(CURRENT_SUBJECT==='quality'?'品管（土建）':'甲種職安');
+  const ssName=document.getElementById('subjectSummaryName');
+  const ssDesc=document.getElementById('subjectSummaryDesc');
+  const ssTag=document.getElementById('subjectSummaryTag');
+  const ssCount=document.getElementById('subjectSummaryCount');
+  const ssIcon=document.getElementById('subjectSummaryIcon');
+  const pastNav=document.getElementById('pastNavBtn');
+  const pastMode=document.getElementById('pastModeBtn');
+  if(refMainIcon)refMainIcon.textContent=CURRENT_SUBJECT==='quality'?'🏗️':'🦺';
+  if(brand)brand.textContent=CURRENT_SUBJECT==='quality'?'品管（土建）':'甲種職安';
   if(kicker)kicker.textContent=cfg.full;
   if(title)title.innerHTML=cfg.name+'<br>線上題庫';
   if(ssName)ssName.textContent=cfg.name;
@@ -1197,25 +1211,13 @@ function applySubjectUI(){
   if(ssTag)ssTag.textContent=CURRENT_SUBJECT==='quality'?'115年1月起適用':'甲種職安題庫';
   if(ssCount)ssCount.textContent=cfg.questions.length.toLocaleString()+' 題';
   if(ssIcon)ssIcon.textContent=CURRENT_SUBJECT==='quality'?'👷':'🦺';
-  const ssName=document.getElementById('subjectSummaryName');
-  const ssDesc=document.getElementById('subjectSummaryDesc');
-  const ssTag=document.getElementById('subjectSummaryTag');
-  const ssCount=document.getElementById('subjectSummaryCount');
-  const ssIcon=document.getElementById('subjectSummaryIcon');
-  if(ssName)ssName.textContent=cfg.name;
-  if(ssDesc)ssDesc.textContent=cfg.full;
-  if(ssCount)ssCount.textContent=cfg.questions.length.toLocaleString()+' 題';
-  if(ssIcon)ssIcon.textContent=CURRENT_SUBJECT==='quality'?'👷':'🦺';
-  if(ssTag)ssTag.textContent=CURRENT_SUBJECT==='quality'?'115年1月起適用':'甲種職安題庫';
+  if(pastNav)pastNav.style.display='';
   if(pastMode){
+    pastMode.style.display='';
     const h=pastMode.querySelector('h3'), desc=pastMode.querySelector('p');
     if(h)h.textContent='🗓️ 114–115年歷年考題';
     if(desc)desc.textContent=CURRENT_SUBJECT==='quality'?'品管（土建）114、115年題庫練習。':'甲種職安114、115年近期題目。';
   }
-  const pastNav=document.getElementById('pastNavBtn');
-  const pastMode=document.getElementById('pastModeBtn');
-  if(pastNav)pastNav.style.display='';
-  if(pastMode)pastMode.style.display='';
   updateStats();
 }
 function selectSubject(key){
@@ -1238,7 +1240,7 @@ function showSubjectSelect(){
   const r=document.getElementById('readingView'); if(r)r.style.display='none';
   document.getElementById('subjectSelect').style.display='';
   document.getElementById('subjectSelect').classList.remove('hidden');
-  document.getElementById('siteBrand').innerHTML='線上題庫測驗';
+  const sb=document.getElementById('siteBrand'); if(sb)sb.textContent='線上題庫測驗';
   window.scrollTo(0,0);
 }
 </script>
