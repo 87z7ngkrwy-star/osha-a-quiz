@@ -308,9 +308,16 @@ body{font-size:15px}
 @media(max-width:620px){.subject-grid{grid-template-columns:1fr}.subject-card{padding:18px 16px}.subject-hero{padding-top:18px}}
 </style>
 
+
+<style id="subjectLandingHeaderFix">
+body.subject-landing #mainHeader{display:none!important}
+body.subject-landing #subjectSelect{padding-top:10px}
+body.subject-landing main{padding-top:0}
+</style>
+
 </head>
-<body>
-<header class="header">
+<body class="subject-landing">
+<header class="header" id="mainHeader">
 <div class="header-inner">
 <div class="brand-row">
 <div class="brand" id="siteBrand">線上題庫測驗</div>
@@ -760,6 +767,7 @@ function applySubjectUI(){
 }
 function selectSubject(key){
   if(!SUBJECTS[key])return;
+  document.body.classList.remove('subject-landing');
   CURRENT_SUBJECT=key;
   QUESTIONS=SUBJECTS[key].questions;
   applySubjectUI();
@@ -768,6 +776,7 @@ function selectSubject(key){
   window.scrollTo(0,0);
 }
 function showSubjectSelect(){
+  document.body.classList.add('subject-landing');
   hideAll();
   const r=document.getElementById('readingView'); if(r)r.style.display='none';
   document.getElementById('subjectSelect').classList.remove('hidden');
@@ -779,6 +788,7 @@ function showSubjectSelect(){
 
 <script id="multiSubjectInit">
 document.addEventListener('DOMContentLoaded',function(){
+  document.body.classList.add('subject-landing');
   const home=document.getElementById('home');
   if(home)home.classList.add('hidden');
   const sel=document.getElementById('subjectSelect');
