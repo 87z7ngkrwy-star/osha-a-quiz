@@ -55,6 +55,26 @@ body.dark .hero,body.dark .stat,body.dark .mode,body.dark .choice,body.dark .act
 body.dark .choice.selected{background:#10243a}
 @media(max-width:620px){.nav{grid-template-columns:repeat(2,1fr)}.brand-row{display:block}.top-actions{justify-content:flex-start;margin-top:16px}.mode-grid{grid-template-columns:1fr}.wrap{padding-left:14px;padding-right:14px}}
 </style>
+
+<style id="legalStyles">
+.legal-footer{max-width:980px;margin:24px auto 40px;padding:18px 20px;border-top:1px solid #dfe5ec;color:#64748b;font-size:14px;line-height:1.8;text-align:center}
+.legal-footer .legal-links{display:flex;justify-content:center;gap:8px 18px;flex-wrap:wrap;margin-bottom:8px}
+.legal-footer button{border:0;background:transparent;color:#2563eb;font:inherit;font-weight:700;padding:3px;cursor:pointer}
+.legal-footer .mini{font-size:12px;color:#94a3b8}
+.legal-modal{position:fixed;inset:0;background:rgba(15,23,42,.62);z-index:9999;display:none;align-items:center;justify-content:center;padding:18px}
+.legal-modal.show{display:flex}
+.legal-box{width:min(720px,100%);max-height:82vh;overflow:auto;background:#fff;color:#1e293b;border-radius:18px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.legal-box h2{margin:0 0 14px;font-size:24px;color:#0f172a}
+.legal-box h3{margin:20px 0 6px;font-size:17px;color:#1d4ed8}
+.legal-box p{margin:6px 0;line-height:1.8}
+.legal-box ul{padding-left:22px;line-height:1.8}
+.legal-close{float:right;border:0;border-radius:10px;background:#eef2ff;color:#1d4ed8;font-size:18px;padding:7px 11px;cursor:pointer}
+body.dark .legal-footer{border-color:#334155;color:#94a3b8}
+body.dark .legal-box{background:#172033;color:#e2e8f0}
+body.dark .legal-box h2{color:#f8fafc}
+body.dark .legal-box h3{color:#93c5fd}
+</style>
+
 </head>
 <body>
 <header class="header">
@@ -149,5 +169,68 @@ function jumpQ(i){idx=i;render();window.scrollTo(0,0)}
 function finish(){if(examMode)session.forEach(q=>updateWrong(q));let correct=session.filter(q=>answers[q.id]===q.answer).length,total=session.length,score=Math.round(correct/total*100);let h=loadStore('history',[]);h.push({date:new Date().toLocaleString('zh-TW'),correct,total,score});saveStore('history',h);alert(`測驗完成！\n答對 ${correct} / ${total} 題\n成績 ${score} 分`);goHome()}
 $('#darkBtn').onclick=()=>{document.body.classList.toggle('dark');localStorage.setItem('dark',document.body.classList.contains('dark')?'1':'0')};if(localStorage.getItem('dark')==='1')document.body.classList.add('dark');updateStats();
 </script>
+
+<footer class="legal-footer">
+  <div class="legal-links">
+    <button onclick="openLegal('about')">關於本站</button>
+    <button onclick="openLegal('source')">資料來源</button>
+    <button onclick="openLegal('disclaimer')">免責聲明</button>
+    <button onclick="openLegal('rights')">著作權／權利通知</button>
+    <button onclick="openLegal('report')">錯題回報</button>
+  </div>
+  <div>本站為私人建置之非官方學習與模擬測驗工具，與勞動部、職業安全衛生署及其他政府機關無隸屬、代理或合作關係。</div>
+  <div class="mini">題目、答案與法規內容可能因資料版本或法規修正而有所差異；正式考試及現行法規請以主管機關最新公告為準。</div>
+</footer>
+
+<div id="legalModal" class="legal-modal" onclick="if(event.target===this)closeLegal()">
+  <div class="legal-box">
+    <button class="legal-close" onclick="closeLegal()">✕</button>
+    <div id="legalContent"></div>
+  </div>
+</div>
+
+
+<script id="legalScript">
+const LEGAL_TEXT={
+about:`<h2>關於本站</h2>
+<p>本網站為私人建置之「營造業甲種職業安全衛生業務主管」學習與模擬測驗工具，目的為協助使用者進行考前複習、題目練習及錯題整理。</p>
+<p><strong>本站並非政府機關官方網站或官方題庫。</strong>本站與勞動部、職業安全衛生署、訓練機構及其他政府機關無隸屬、代理、認證或合作關係。</p>
+<h3>使用原則</h3><p>本站內容僅供學習與複習參考。正式測驗範圍、報名資格、法規、答案及相關規定，均應以主管機關及正式公告之最新資料為準。</p>`,
+
+source:`<h2>資料來源與版本說明</h2>
+<p>本站題目以「營造業甲種職業安全衛生業務主管」相關學習資料為主要整理範圍，並依學習用途重新製作為線上測驗介面。</p>
+<p>題目文字校對另參考現行職業安全衛生相關法規及網路上可公開查得之同類題目資料，以修正文字辨識、標點及排版錯誤；外部資料不作為新增本站題庫範圍之依據。</p>
+<p><strong>本站不宣稱本題庫為勞動部或職業安全衛生署公布之官方題庫。</strong></p>
+<h3>版本查核</h3><p>法規及測驗制度可能修正。使用者正式應考前，應再查核主管機關最新法規、公告與測驗資訊。</p>`,
+
+disclaimer:`<h2>免責聲明</h2>
+<h3>內容用途</h3><p>本站內容僅供一般學習、考前複習及自我測驗參考，不構成法律、職業安全衛生專業或考試結果之保證。</p>
+<h3>題目與答案</h3><p>本站已盡力整理及校對題目，但資料可能因版本差異、法規修正、文字轉換或整理過程而存在錯誤。本站不保證題目、答案、分類或解析與正式測驗完全一致。</p>
+<h3>官方資訊優先</h3><p>如本站內容與主管機關現行法規、公告或正式測驗資訊不一致，應以主管機關最新公布內容為準。</p>
+<h3>使用責任</h3><p>使用者應自行判斷並查證本站資訊。因使用或依賴本站內容所生之任何結果，本站不作考試通過、資格取得或其他結果之保證。</p>`,
+
+rights:`<h2>著作權與權利通知</h2>
+<p>本站尊重著作權、商標權及其他智慧財產權。網站程式介面、版面整理及本站自行製作之內容，其權利依相關法律規定處理；題目或引用資料之權利仍歸原權利人所有。</p>
+<p>本站建置目的為提供學習與考前練習，並不因標示來源、非營利或加入本聲明而主張取得第三人著作之授權。</p>
+<h3>權利人通知</h3><p>如您為相關內容之權利人或代理人，認為本站特定內容涉及您的著作權、商標權或其他權利，請提供可識別之題號／內容、權利依據及聯絡方式。經確認後，網站管理者將視情況進行修正、標示、限制存取或移除。</p>`,
+
+report:`<h2>錯題／內容回報</h2>
+<p>若發現題目有錯字、選項錯置、答案疑義、法規版本差異或其他內容問題，建議回報時提供：</p>
+<ul><li>題號</li><li>錯誤內容或畫面截圖</li><li>建議修正文字</li><li>如有，可一併提供可查證之法規或資料來源</li></ul>
+<p>網站管理者可依原始題庫範圍、現行法規及可查證資料進行比對後修正。</p>
+<p><strong>聯絡方式：</strong>請由網站管理者於公開前填入電子郵件、LINE 或其他聯絡管道。</p>`
+};
+function openLegal(key){
+  document.getElementById('legalContent').innerHTML=LEGAL_TEXT[key]||'';
+  document.getElementById('legalModal').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeLegal(){
+  document.getElementById('legalModal').classList.remove('show');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLegal()});
+</script>
+
 </body>
 </html>
